@@ -1,890 +1,258 @@
-/* ===== ПЕРЕМЕННЫЕ ===== */
-:root {
-    --bg: #06060e;
-    --bg-alt: #0b0b18;
-    --surface: rgba(255, 255, 255, 0.04);
-    --border: rgba(255, 255, 255, 0.08);
-    --text: #eaeaf0;
-    --text-dim: #8a8aa0;
-    --neon: #00f0ff;
-    --neon-2: #a855f7;
-    --neon-3: #ff2d95;
-    --gradient: linear-gradient(135deg, #00f0ff 0%, #a855f7 50%, #ff2d95 100%);
-    --radius: 18px;
-    --radius-sm: 12px;
-    --font: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
-}
-
-/* ===== СБРОС ===== */
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: var(--font);
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* ===== ФОНОВЫЕ СВЕТОВЫЕ ПЯТНА ===== */
-.bg-glow {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(140px);
-    opacity: 0.35;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.bg-glow--1 {
-    width: 600px;
-    height: 600px;
-    background: #00f0ff;
-    top: -200px;
-    left: -200px;
-    animation: floatGlow 12s ease-in-out infinite;
-}
-
-.bg-glow--2 {
-    width: 500px;
-    height: 500px;
-    background: #a855f7;
-    bottom: -150px;
-    right: -150px;
-    animation: floatGlow 15s ease-in-out infinite reverse;
-}
-
-.bg-glow--3 {
-    width: 400px;
-    height: 400px;
-    background: #ff2d95;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: floatGlow 18s ease-in-out infinite;
-}
-
-@keyframes floatGlow {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(40px, -30px) scale(1.1); }
-    66% { transform: translate(-30px, 20px) scale(0.95); }
-}
-
-/* ===== КОНТЕЙНЕР ===== */
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
-    position: relative;
-    z-index: 1;
-}
-
-/* ===== ХЕДЕР ===== */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    background: rgba(6, 6, 14, 0.7);
-    border-bottom: 1px solid var(--border);
-}
-
-.header__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 72px;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    font-size: 18px;
-    letter-spacing: -0.02em;
-}
-
-.logo__icon {
-    font-size: 22px;
-}
-
-.logo__text {
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.logo__city {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 4px 10px;
-    border: 1px solid var(--border);
-    border-radius: 100px;
-}
-
-.nav {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-}
-
-.nav__link {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-dim);
-    transition: color 0.25s;
-    position: relative;
-}
-
-.nav__link:hover {
-    color: var(--text);
-}
-
-.nav__link::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--gradient);
-    transition: width 0.3s;
-    border-radius: 2px;
-}
-
-.nav__link:hover::after {
-    width: 100%;
-}
-
-/* ===== КНОПКИ ===== */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 32px;
-    border-radius: 100px;
-    font-family: var(--font);
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    white-space: nowrap;
-}
-
-.btn--small {
-    padding: 10px 22px;
-    font-size: 13px;
-}
-
-.btn--full {
-    width: 100%;
-}
-
-.btn--neon {
-    background: var(--gradient);
-    color: #06060e;
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3), 0 0 60px rgba(168, 85, 247, 0.15);
-}
-
-.btn--neon:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(0, 240, 255, 0.5), 0 0 80px rgba(168, 85, 247, 0.3);
-}
-
-.btn--ghost {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-}
-
-.btn--ghost:hover {
-    border-color: var(--neon);
-    color: var(--neon);
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
-}
-
-/* ===== ГЕРОЙ ===== */
-.hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 120px 0 80px;
-    position: relative;
-}
-
-.hero__inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-}
-
-.badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 18px;
-    border-radius: 100px;
-    border: 1px solid rgba(0, 240, 255, 0.25);
-    background: rgba(0, 240, 255, 0.06);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--neon);
-    margin-bottom: 28px;
-    letter-spacing: 0.02em;
-}
-
-.hero__title {
-    font-size: clamp(36px, 5vw, 64px);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    margin-bottom: 24px;
-}
-
-.gradient-text {
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero__desc {
-    font-size: 17px;
-    color: var(--text-dim);
-    max-width: 500px;
-    margin-bottom: 36px;
-    line-height: 1.7;
-}
-
-.hero__actions {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-bottom: 48px;
-}
-
-.hero__stats {
-    display: flex;
-    gap: 40px;
-}
-
-.stat {
-    display: flex;
-    flex-direction: column;
-}
-
-.stat__num {
-    font-size: 28px;
-    font-weight: 800;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.stat__label {
-    font-size: 13px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-}
-
-/* ===== ВИЗУАЛ ГЕРОЯ ===== */
-.hero__visual {
-    position: relative;
-    height: 420px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(60px);
-    animation: orbFloat 8s ease-in-out infinite;
-}
-
-.orb--1 {
-    width: 200px;
-    height: 200px;
-    background: rgba(0, 240, 255, 0.4);
-    top: 10%;
-    left: 10%;
-}
-
-.orb--2 {
-    width: 160px;
-    height: 160px;
-    background: rgba(168, 85, 247, 0.4);
-    bottom: 15%;
-    right: 10%;
-    animation-delay: -3s;
-}
-
-.orb--3 {
-    width: 120px;
-    height: 120px;
-    background: rgba(255, 45, 149, 0.35);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation-delay: -5s;
-}
-
-@keyframes orbFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(20px, -25px) scale(1.15); }
-}
-
-.hero__card {
-    width: 260px;
-    height: 320px;
-    border-radius: var(--radius);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 32px 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    position: relative;
-    animation: cardFloat 6s ease-in-out infinite;
-}
-
-@keyframes cardFloat {
-    0%, 100% { transform: translateY(0) rotate(-2deg); }
-    50% { transform: translateY(-18px) rotate(2deg); }
-}
-
-.hero__card-line {
-    height: 10px;
-    border-radius: 10px;
-    background: var(--gradient);
-    opacity: 0.7;
-}
-
-.hero__card-line:nth-child(1) { width: 70%; }
-.hero__card-line:nth-child(2) { width: 90%; opacity: 0.5; }
-.hero__card-line:nth-child(3) { width: 50%; opacity: 0.3; }
-
-.hero__card-dot {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: var(--neon);
-    box-shadow: 0 0 20px var(--neon);
-    margin-top: auto;
-    animation: pulseDot 2s ease-in-out infinite;
-}
-
-@keyframes pulseDot {
-    0%, 100% { box-shadow: 0 0 20px var(--neon); }
-    50% { box-shadow: 0 0 40px var(--neon), 0 0 80px var(--neon); }
-}
-
-/* ===== СЕКЦИИ ===== */
-.section {
-    padding: 100px 0;
-    position: relative;
-}
-
-.section--alt {
-    background: var(--bg-alt);
-}
-
-.section__head {
-    text-align: center;
-    margin-bottom: 64px;
-}
-
-.section__tag {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--neon);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 16px;
-}
-
-.section__title {
-    font-size: clamp(28px, 3.5vw, 44px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-}
-
-/* ===== ФИЧИ ===== */
-.features {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-}
-
-.feature {
-    padding: 36px 28px;
-    border-radius: var(--radius);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.feature::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--gradient);
-    opacity: 0;
-    transition: opacity 0.4s;
-}
-
-.feature:hover {
-    transform: translateY(-6px);
-    border-color: rgba(0, 240, 255, 0.2);
-    box-shadow: 0 20px 60px rgba(0, 240, 255, 0.08);
-}
-
-.feature:hover::before {
-    opacity: 1;
-}
-
-.feature__icon {
-    font-size: 36px;
-    margin-bottom: 20px;
-}
-
-.feature__title {
-    font-size: 17px;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.feature__desc {
-    font-size: 14px;
-    color: var(--text-dim);
-    line-height: 1.6;
-}
-
-/* ===== КУРСЫ ===== */
-.courses {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-}
-
-.course {
-    padding: 36px 28px;
-    border-radius: var(--radius);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-}
-
-.course::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    background: radial-gradient(circle at 50% 100%, rgba(0, 240, 255, 0.08), transparent 70%);
-    opacity: 0;
-    transition: opacity 0.4s;
-    pointer-events: none;
-}
-
-.course:hover {
-    transform: translateY(-6px);
-    border-color: rgba(168, 85, 247, 0.3);
-    box-shadow: 0 20px 60px rgba(168, 85, 247, 0.1);
-}
-
-.course:hover::after {
-    opacity: 1;
-}
-
-.course__num {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--neon);
-    letter-spacing: 0.1em;
-    margin-bottom: 20px;
-}
-
-.course__title {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.course__desc {
-    font-size: 14px;
-    color: var(--text-dim);
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.course__age {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 100px;
-    background: rgba(168, 85, 247, 0.1);
-    border: 1px solid rgba(168, 85, 247, 0.25);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--neon-2);
-}
-
-/* ===== ОТЗЫВЫ ===== */
-.reviews {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-}
-
-.review {
-    padding: 36px 28px;
-    border-radius: var(--radius);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    transition: all 0.4s;
-    position: relative;
-}
-
-.review::before {
-    content: '"';
-    position: absolute;
-    top: 16px;
-    left: 24px;
-    font-size: 60px;
-    font-weight: 800;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    opacity: 0.2;
-    line-height: 1;
-}
-
-.review:hover {
-    transform: translateY(-4px);
-    border-color: rgba(0, 240, 255, 0.2);
-}
-
-.review__text {
-    font-size: 14px;
-    color: var(--text-dim);
-    line-height: 1.7;
-    margin-bottom: 24px;
-    position: relative;
-    z-index: 1;
-}
-
-.review__author {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--neon);
-}
-
-/* ===== КОНТАКТЫ ===== */
-.contacts {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 40px;
-    align-items: start;
-}
-
-.contacts__info {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-}
-
-.contact-item {
-    display: flex;
-    gap: 18px;
-    align-items: flex-start;
-}
-
-.contact-item__icon {
-    font-size: 22px;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-sm);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    flex-shrink: 0;
-}
-
-.contact-item__label {
-    font-size: 12px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 4px;
-}
-
-.contact-item__value {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.5;
-}
-
-.contact-item__value--link {
-    color: var(--neon);
-    transition: color 0.25s;
-}
-
-.contact-item__value--link:hover {
-    color: var(--neon-2);
-}
-
-/* ===== CTA-КАРТОЧКА ===== */
-.cta-card {
-    padding: 40px 32px;
-    border-radius: var(--radius);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-}
-
-.cta-card__glow {
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(from 0deg, transparent, rgba(0, 240, 255, 0.08), transparent, rgba(168, 85, 247, 0.08), transparent);
-    animation: rotateGlow 8s linear infinite;
-    pointer-events: none;
-}
-
-@keyframes rotateGlow {
-    to { transform: rotate(360deg); }
-}
-
-.cta-card__title {
-    font-size: 22px;
-    font-weight: 800;
-    margin-bottom: 12px;
-    position: relative;
-    z-index: 1;
-}
-
-.cta-card__desc {
-    font-size: 14px;
-    color: var(--text-dim);
-    margin-bottom: 28px;
-    line-height: 1.6;
-    position: relative;
-    z-index: 1;
-}
-
-.cta-card .btn {
-    position: relative;
-    z-index: 1;
-    margin-bottom: 12px;
-}
-
-/* ===== ФУТЕР ===== */
-.footer {
-    padding: 40px 0;
-    border-top: 1px solid var(--border);
-    background: var(--bg);
-    position: relative;
-    z-index: 1;
-}
-
-.footer__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
-}
-
-.footer__brand {
-    font-size: 16px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.footer__copy {
-    font-size: 13px;
-    color: var(--text-dim);
-}
-
-.footer__socials {
-    display: flex;
-    gap: 12px;
-}
-
-.footer__social {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text-dim);
-    transition: all 0.3s;
-}
-
-.footer__social:hover {
-    border-color: var(--neon);
-    color: var(--neon);
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
-    transform: translateY(-2px);
-}
-
-/* ===== АДАПТИВ ===== */
-@media (max-width: 1024px) {
-    .hero__inner {
-        grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
-    }
-
-    .hero__desc {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .hero__actions {
-        justify-content: center;
-    }
-
-    .hero__stats {
-        justify-content: center;
-    }
-
-    .hero__visual {
-        height: 300px;
-    }
-
-    .features {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .courses {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .reviews {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .contacts {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 640px) {
-    .nav {
-        display: none;
-    }
-
-    .hero {
-        padding: 100px 0 60px;
-    }
-
-    .hero__title {
-        font-size: 32px;
-    }
-
-    .hero__stats {
-        gap: 24px;
-    }
-
-    .stat__num {
-        font-size: 22px;
-    }
-
-    .features,
-    .courses,
-    .reviews {
-        grid-template-columns: 1fr;
-    }
-
-    .section {
-        padding: 64px 0;
-    }
-
-    .section__head {
-        margin-bottom: 40px;
-    }
-
-    .btn {
-        padding: 12px 24px;
-        font-size: 14px;
-    }
-
-    .footer__inner {
-        flex-direction: column;
-        text-align: center;
-    }
-}
-
-/* ===== СКРОЛЛБАР ===== */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--bg);
-}
-
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--neon), var(--neon-2));
-    border-radius: 4px;
-}
-
-::selection {
-    background: rgba(0, 240, 255, 0.3);
-    color: #fff;
-}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алгоритмика Грозный — Международная школа программирования для детей</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Фоновые световые пятна -->
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+    <div class="bg-glow bg-glow--3"></div>
+
+    <!-- Хедер -->
+    <header class="header">
+        <div class="container header__inner">
+            <a href="#" class="logo">
+                <span class="logo__icon">⚡</span>
+                <span class="logo__text">Алгоритмика</span>
+                <span class="logo__city">Грозный</span>
+            </a>
+            <nav class="nav">
+                <a href="#about" class="nav__link">О школе</a>
+                <a href="#courses" class="nav__link">Курсы</a>
+                <a href="#contacts" class="nav__link">Контакты</a>
+                <a href="#contacts" class="btn btn--small btn--neon">Записаться</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Герой-секция -->
+    <section class="hero">
+        <div class="container hero__inner">
+            <div class="hero__content">
+                <div class="badge">🌍 Международная школа</div>
+                <h1 class="hero__title">
+                    Программирование<br>
+                    <span class="gradient-text">для детей 5–17 лет</span>
+                </h1>
+                <p class="hero__desc">
+                    Готовим будущих IT-гениев: от первых алгоритмов до профессиональной разработки.
+                    Собственная интерактивная платформа, сертифицированные преподаватели,
+                    индивидуальный темп обучения.
+                </p>
+                <div class="hero__actions">
+                    <a href="#contacts" class="btn btn--neon">Пробный урок</a>
+                    <a href="#courses" class="btn btn--ghost">Смотреть курсы</a>
+                </div>
+                <div class="hero__stats">
+                    <div class="stat">
+                        <span class="stat__num">5–17</span>
+                        <span class="stat__label">лет</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__num">10+</span>
+                        <span class="stat__label">курсов</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__num">4.4</span>
+                        <span class="stat__label">рейтинг</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__visual">
+                <div class="orb orb--1"></div>
+                <div class="orb orb--2"></div>
+                <div class="orb orb--3"></div>
+                <div class="hero__card">
+                    <div class="hero__card-line"></div>
+                    <div class="hero__card-line"></div>
+                    <div class="hero__card-line"></div>
+                    <div class="hero__card-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- О школе -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section__head">
+                <span class="section__tag">// о школе</span>
+                <h2 class="section__title">Почему родители выбирают <span class="gradient-text">Алгоритмику</span></h2>
+            </div>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature__icon">🧠</div>
+                    <h3 class="feature__title">Интерактивная платформа</h3>
+                    <p class="feature__desc">Собственная образовательная среда позволяет каждому ребёнку осваивать материал в индивидуальном темпе.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature__icon">👨‍🏫</div>
+                    <h3 class="feature__title">Опытные преподаватели</h3>
+                    <p class="feature__desc">Педагоги — практикующие разработчики и сертифицированные специалисты.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature__icon">📈</div>
+                    <h3 class="feature__title">От 5 до 17 лет</h3>
+                    <p class="feature__desc">Программы для любого возраста: от визуального программирования до Python и веб-разработки.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature__icon">🎓</div>
+                    <h3 class="feature__title">Международный уровень</h3>
+                    <p class="feature__desc">Школа работает более чем в 90 странах мира. Сертификаты признаются IT-компаниями.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Курсы -->
+    <section class="section section--alt" id="courses">
+        <div class="container">
+            <div class="section__head">
+                <span class="section__tag">// курсы</span>
+                <h2 class="section__title">Направления <span class="gradient-text">обучения</span></h2>
+            </div>
+            <div class="courses">
+                <div class="course">
+                    <div class="course__num">01</div>
+                    <h3 class="course__title">Визуальное программирование</h3>
+                    <p class="course__desc">Scratch, Kodu, первые игры и анимации. Для детей 5–8 лет.</p>
+                    <span class="course__age">5–8 лет</span>
+                </div>
+                <div class="course">
+                    <div class="course__num">02</div>
+                    <h3 class="course__title">Python-разработка</h3>
+                    <p class="course__desc">От основ синтаксиса до создания ботов и приложений. Для 9–14 лет.</p>
+                    <span class="course__age">9–14 лет</span>
+                </div>
+                <div class="course">
+                    <div class="course__num">03</div>
+                    <h3 class="course__title">Веб-разработка</h3>
+                    <p class="course__desc">HTML, CSS, JavaScript. Создание собственных сайтов и веб-приложений.</p>
+                    <span class="course__age">12–17 лет</span>
+                </div>
+                <div class="course">
+                    <div class="course__num">04</div>
+                    <h3 class="course__title">Графический дизайн</h3>
+                    <p class="course__desc">Figma, Photoshop, основы композиции и цифровой иллюстрации.</p>
+                    <span class="course__age">10–16 лет</span>
+                </div>
+                <div class="course">
+                    <div class="course__num">05</div>
+                    <h3 class="course__title">Математика</h3>
+                    <p class="course__desc">Развитие логики, олимпиадные задачи, подготовка к экзаменам.</p>
+                    <span class="course__age">7–17 лет</span>
+                </div>
+                <div class="course">
+                    <div class="course__num">06</div>
+                    <h3 class="course__title">IT-стартап</h3>
+                    <p class="course__desc">Командная работа над реальным проектом: от идеи до презентации.</p>
+                    <span class="course__age">14–17 лет</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section class="section">
+        <div class="container">
+            <div class="section__head">
+                <span class="section__tag">// отзывы</span>
+                <h2 class="section__title">Что говорят <span class="gradient-text">родители</span></h2>
+            </div>
+            <div class="reviews">
+                <div class="review">
+                    <p class="review__text">«Занимаемся по программе «Графический дизайн». Ребёнку нравится. Идёт с удовольствием. Очень дружелюбные преподаватели. Удобная оплата.»</p>
+                    <div class="review__author">— Родитель ученика</div>
+                </div>
+                <div class="review">
+                    <p class="review__text">«Уроки интересные, наполненные, много практики, сыну понравились. Преподаватели всё понятно объясняют, есть служба заботы.»</p>
+                    <div class="review__author">— Родитель ученика</div>
+                </div>
+                <div class="review">
+                    <p class="review__text">«Отличное учебное заведение для обучения детей разных возрастов. Ребёнок освоил Python и уже делает первые проекты.»</p>
+                    <div class="review__author">— Родитель ученика</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="section section--alt" id="contacts">
+        <div class="container">
+            <div class="section__head">
+                <span class="section__tag">// контакты</span>
+                <h2 class="section__title">Запишитесь на <span class="gradient-text">пробный урок</span></h2>
+            </div>
+            <div class="contacts">
+                <div class="contacts__info">
+                    <div class="contact-item">
+                        <span class="contact-item__icon">📍</span>
+                        <div>
+                            <div class="contact-item__label">Адрес</div>
+                            <div class="contact-item__value">г. Грозный, ул. Умара Кадырова, 21</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-item__icon">📞</span>
+                        <div>
+                            <div class="contact-item__label">Телефон</div>
+                            <a href="tel:+79667222244" class="contact-item__value contact-item__value--link">8 (966) 722-22-44</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-item__icon">✉️</span>
+                        <div>
+                            <div class="contact-item__label">Email</div>
+                            <a href="mailto:grozny@algoritmika.org" class="contact-item__value contact-item__value--link">grozny@algoritmika.org</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-item__icon">🌐</span>
+                        <div>
+                            <div class="contact-item__label">Сайт</div>
+                            <a href="https://grozny.algoritmika.org" target="_blank" rel="noopener" class="contact-item__value contact-item__value--link">grozny.algoritmika.org</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-item__icon">🕒</span>
+                        <div>
+                            <div class="contact-item__label">Режим работы</div>
+                            <div class="contact-item__value">Пн–Чт, Сб–Вс: 10:00–18:30<br>Пт — выходной</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contacts__cta">
+                    <div class="cta-card">
+                        <div class="cta-card__glow"></div>
+                        <h3 class="cta-card__title">Первый урок — бесплатно</h3>
+                        <p class="cta-card__desc">Оставьте заявку, и мы подберём подходящую программу для вашего ребёнка.</p>
+                        <a href="tel:+79667222244" class="btn btn--neon btn--full">Позвонить</a>
+                        <a href="https://wa.me/79667222244" target="_blank" rel="noopener" class="btn btn--ghost btn--full">WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container footer__inner">
+            <div class="footer__brand">
+                <span class="logo__icon">⚡</span> Алгоритмика Грозный
+            </div>
+            <div class="footer__copy">© 2025 Международная школа программирования для детей</div>
+            <div class="footer__socials">
+                <a href="https://t.me/algoritmikagrozny" target="_blank" rel="noopener" class="footer__social">TG</a>
+                <a href="https://vk.com/algoritmika_grozny" target="_blank" rel="noopener" class="footer__social">VK</a>
+                <a href="https://instagram.com/algoritmika.grozny" target="_blank" rel="noopener" class="footer__social">IG</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
